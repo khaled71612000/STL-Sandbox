@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+.vs/CSandBox/v17/Browse.VC.db
+.vs/CSandBox/v17/Browse.VC.db-shm
+.vs/CSandBox/v17/Browse.VC.db-wal
+.vs/CSandBox/v17/Browse.VC.opendb
