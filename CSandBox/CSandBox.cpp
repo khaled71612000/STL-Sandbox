@@ -1,26 +1,25 @@
-// CSandBox.cpp : This file contains the 'main' function. Program execution begins and ends there.
-
 #include <iostream>
-#include <list>
+#include <bitset>
 
 using namespace std;
 
 int main()
 {
+    //create bitset with value 0b100000
+    bitset<16> bits(32);
 
-    list<char> v;
+    cout << bits << endl;
 
-    for (int i = 0; i < 10; i++)
-    {
-        v.push_back('A');
-    }
-    cout << v.size() << endl;
+    bits[0] = true;    bits[5] = true;
+    bits[10] = true;    bits[12] = true;
 
-    for (const char& i : v)
-    {
-        cout << i << endl;
-    }
-    cout << endl;
+    cout << bits << endl;
+
+    //shift two
+    bits <<= 2;
+    cout << bits << endl;
+    cout << bits[3] << endl;
+
 
     std::cin.get();
 }
