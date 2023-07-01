@@ -1,55 +1,56 @@
+
 #include <iostream>
 #include <vector>
-#include <unordered_map>
 
 using namespace std;
 
 
+namespace my_copy {
+
+	template<typename InputIterator, typename OutputIterator>
+	OutputIterator copy(
+		InputIterator first,
+		InputIterator last,
+		OutputIterator result)
+	{
+		//
+		for (; first != last; ++first, ++result)
+		{
+			*result = *first;
+		}
+		return result;
+	}
+
+}
+
 int main()
 {
-	vector<int> v = { 1, 2, 3, 4, 5 };
-		
-	//index opertator
-	for (int i = 0; i < v.size(); i++)
+	int a1[] = { 1, 2, 3, 4, 5, 6 };
+	const int a1_size = sizeof(a1) / sizeof(a1[0]);
+
+	int a2[a1_size];
+	cout << a1 << endl;
+	cout << a1_size << endl;
+	cout << a1 + a1_size << endl;
+
+	//pointer to start and end so its an address
+	my_copy::copy(a1, a1 + a1_size, a2);
+
+	for (int i = 0; i < a1_size; i++)
 	{
-		cout << v[i] << endl;
-	}
-
-	cout << endl;
-
-	// for each which is cleaner
-	for (int value : v)
-	{
-		cout << value << endl;
-	}
-
-	cout << endl;
-
-
-	//in case you want to erase an element but continue looping
-	//or like a tree or unordered set
-	for (vector<int>::iterator it = v.begin(); it != v.end(); ++it)
-	{
-		cout << *it << endl;
+		cout << a2[i] << endl;
 	}
 	cout << endl;
 
 
-	unordered_map<string, int> map;
+	vector<int> v1{ 1, 2, 3, 4, 5 };
+	vector<int> v2(v1.size());
 
-	map["khaled"] = 5;
-	map["ahmed"] = 6;
+	//begin will return an iterator which is a pointer to the first elemnet
+	my_copy::copy(v1.begin(), v1.end(), v2.begin());
 
-	//cant iterate over using for loop because index is not zero and one we need keys
-	using scoreMap = unordered_map<string, int>;
-	//using const
-	for (scoreMap::const_iterator it = map.begin(); it != map.end(); it++)
+	for (int i = 0; i < v2.size(); i++)
 	{
-		//dont copy value, and use const because it is const
-		const string& key = it->first;
-		const int& value = it->second;
-		cout << key << " " << value << endl;
+		cout << v2[i] << endl;
 	}
-
-	cin.get();
 }
