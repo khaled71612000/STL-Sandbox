@@ -1,25 +1,55 @@
 #include <iostream>
-#include <bitset>
+#include <vector>
+#include <unordered_map>
 
 using namespace std;
 
+
 int main()
 {
-    //create bitset with value 0b100000
-    bitset<16> bits(32);
+	vector<int> v = { 1, 2, 3, 4, 5 };
+		
+	//index opertator
+	for (int i = 0; i < v.size(); i++)
+	{
+		cout << v[i] << endl;
+	}
 
-    cout << bits << endl;
+	cout << endl;
 
-    bits[0] = true;    bits[5] = true;
-    bits[10] = true;    bits[12] = true;
+	// for each which is cleaner
+	for (int value : v)
+	{
+		cout << value << endl;
+	}
 
-    cout << bits << endl;
-
-    //shift two
-    bits <<= 2;
-    cout << bits << endl;
-    cout << bits[3] << endl;
+	cout << endl;
 
 
-    std::cin.get();
+	//in case you want to erase an element but continue looping
+	//or like a tree or unordered set
+	for (vector<int>::iterator it = v.begin(); it != v.end(); ++it)
+	{
+		cout << *it << endl;
+	}
+	cout << endl;
+
+
+	unordered_map<string, int> map;
+
+	map["khaled"] = 5;
+	map["ahmed"] = 6;
+
+	//cant iterate over using for loop because index is not zero and one we need keys
+	using scoreMap = unordered_map<string, int>;
+	//using const
+	for (scoreMap::const_iterator it = map.begin(); it != map.end(); it++)
+	{
+		//dont copy value, and use const because it is const
+		const string& key = it->first;
+		const int& value = it->second;
+		cout << key << " " << value << endl;
+	}
+
+	cin.get();
 }
