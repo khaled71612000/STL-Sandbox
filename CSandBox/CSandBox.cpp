@@ -1,56 +1,60 @@
 
 #include <iostream>
 #include <vector>
+#include <thread>
+#include <map>
+#include <string>
+#include <chrono>
 
 using namespace std;
+using namespace std::chrono_literals;
 
 
-namespace my_copy {
-
-	template<typename InputIterator, typename OutputIterator>
-	OutputIterator copy(
-		InputIterator first,
-		InputIterator last,
-		OutputIterator result)
+void RefreshForecast(map<string, int> forecastMap)
+{
+	while (true)
 	{
-		//
-		for (; first != last; ++first, ++result)
+		for (auto& item : forecastMap)
 		{
-			*result = *first;
+			item.second++;
+			cout << item.first << " - " << item.second << endl;
 		}
-		return result;
-	}
 
+		this_thread::sleep_for(2000ms);
+	}
 }
 
+void function1()
+{
+	for (int i = 0; i < 200; i++)
+	{
+		cout << '+';
+	}
+}
+void function2()
+{
+	for (int i = 0; i < 200; i++)
+	{
+		cout << '-';
+	}
+}
 int main()
 {
-	int a1[] = { 1, 2, 3, 4, 5, 6 };
-	const int a1_size = sizeof(a1) / sizeof(a1[0]);
-
-	int a2[a1_size];
-	cout << a1 << endl;
-	cout << a1_size << endl;
-	cout << a1 + a1_size << endl;
-
-	//pointer to start and end so its an address
-	my_copy::copy(a1, a1 + a1_size, a2);
-
-	for (int i = 0; i < a1_size; i++)
-	{
-		cout << a2[i] << endl;
-	}
+	thread worker1(function1);
+	thread worker2(function2);
+	cout << endl;
+	cout << endl;
+	cout << endl;
 	cout << endl;
 
+	map<string, int> forecastMap = {
+		{"New York", 15},
+		{"Mubai", 20},
+		{"Berlin", 18}
+	};
 
-	vector<int> v1{ 1, 2, 3, 4, 5 };
-	vector<int> v2(v1.size());
+	thread worker3(RefreshForecast, forecastMap);
 
-	//begin will return an iterator which is a pointer to the first elemnet
-	my_copy::copy(v1.begin(), v1.end(), v2.begin());
 
-	for (int i = 0; i < v2.size(); i++)
-	{
-		cout << v2[i] << endl;
-	}
+	cin.get();
 }
